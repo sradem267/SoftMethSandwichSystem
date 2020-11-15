@@ -121,7 +121,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField />
+                  <TextField fx:id="price" />
                   <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" text="Add to Order">
                      <VBox.margin>
                         <Insets top="10.0" />

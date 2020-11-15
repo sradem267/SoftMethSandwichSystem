@@ -30,6 +30,9 @@ public class Controller implements Initializable{
     @FXML
     private Button bttnAdd, bttnRemove, bttnClear;
 
+    @FXML
+    private TextField price;
+
     private Chicken chicken_sandwich;
     private Beef beef_sandwich;
     private Fish fish_sandwich;
@@ -73,16 +76,62 @@ public class Controller implements Initializable{
 
     @FXML
     public void addClicked(MouseEvent event) {
-        ObservableList<Extra> extras;
-        extras = lvIngredientSelections.getSelectionModel().getSelectedItems();
-        boolean success = false;
-        if (comboBox.getSelectionModel().getSelectedItem().equals("Chicken") || comboBox.getSelectionModel().getSelectedItem() == null) {
+        ObservableList<Extra> extras = lvIngredientSelections.getSelectionModel().getSelectedItems();
+        if (comboBox.getSelectionModel().getSelectedItem() == null || comboBox.getSelectionModel().getSelectedItem().equals("Chicken")) {
             chicken_sandwich = new Chicken();
             for(Extra extra: extras){
-                if(chicken_sandwich.add(extra))
-                    success = true;
+                if(chicken_sandwich.add(extra)) {
+                    lvExtraIngredients.getItems().add(extra);
+                    price.setText(String.format("%.2f", chicken_sandwich.price()));
+                }
                 else{
-                    success = false;
+                    displayArea.appendText("Item already exists!\n");
+                    continue;
+                }
+            }
+        }
+        else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
+            beef_sandwich = new Beef();
+            for(Extra extra: extras){
+                if(beef_sandwich.add(extra)) {
+                    lvExtraIngredients.getItems().add(extra);
+                    price.setText(String.format("%.2f", beef_sandwich.price()));
+                }
+                else{
+                    displayArea.appendText("Item already exists!\n");
+                    continue;
+                }
+            }
+        }
+        else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
+            fish_sandwich = new Fish();
+            for(Extra extra: extras){
+                if(fish_sandwich.add(extra)) {
+                    lvExtraIngredients.getItems().add(extra);
+                    price.setText(String.format("%.2f", fish_sandwich.price()));
+                }
+                else{
+                    displayArea.appendText("Item already exists!\n");
+                    continue;
+                }
+            }
+        }
+        else{
+            displayArea.appendText("Congrats you broke the listView box!\n");
+        }
+    }
+
+    @FXML
+    public void removeClicked(MouseEvent event) {
+        ObservableList<Extra> extrasRemoved = lvExtraIngredients.getSelectionModel().getSelectedItems();
+        if (comboBox.getSelectionModel().getSelectedItem() == null || comboBox.getSelectionModel().getSelectedItem().equals("Chicken")) {
+            chicken_sandwich = new Chicken();
+            for(Extra extraRm: extrasRemoved){
+                if(chicken_sandwich.remove(extraRm)) {
+                    lvExtraIngredients.getSelectionModel().clearSelection();
+                    price.setText(String.format("%.2f", chicken_sandwich.price()));
+                }
+                else{
                     displayArea.appendText("Item not found!\n");
                     continue;
                 }
@@ -90,34 +139,32 @@ public class Controller implements Initializable{
         }
         else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
             beef_sandwich = new Beef();
+            for(Extra extraRm: extrasRemoved){
+                if(beef_sandwich.remove(extraRm)) {
+                    lvExtraIngredients.getSelectionModel().clearSelection();
+                    price.setText(String.format("%.2f", beef_sandwich.price()));
+                }
+                else{
+                    displayArea.appendText("Item not found!\n");
+                    continue;
+                }
+            }
         }
         else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
             fish_sandwich = new Fish();
+            for (Extra extraRm : extrasRemoved) {
+                if (fish_sandwich.remove(extraRm)) {
+                    lvExtraIngredients.getSelectionModel().clearSelection();
+                    price.setText(String.format("%.2f", fish_sandwich.price()));
+                } else {
+                    displayArea.appendText("Item not found!\n");
+                    continue;
+                }
+            }
         }
         else{
             displayArea.appendText("Congrats you broke the listView box!\n");
         }
-        if(success)
-            lvExtraIngredients.setItems(extras);
-    }
-
-    @FXML
-    public void removeClicked(MouseEvent event) {
-        ObservableList<Extra> extrasRemoved;
-        extrasRemoved = lvExtraIngredients.getSelectionModel().getSelectedItems();
-        boolean success = true;
-
-        for(Extra extraRm: extrasRemoved){
-            if(chicken_sandwich.remove(extraRm))
-                continue;
-            else{
-                success = false;
-                displayArea.appendText("Item not found!\n");
-            }
-        }
-        if(success)
-            lvExtraIngredients.getSelectionModel().clearSelection();
-
     }
 
     /**
