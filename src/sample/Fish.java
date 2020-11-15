@@ -4,6 +4,12 @@ public class Fish extends Sandwich{
     static final double BASE_PRICE = 12.99;
 
     /**
+     * Default Fish Constructor.
+     */
+    public Fish() {
+    }
+
+    /**
      * This method calculates the price of a Fish Sandwich.
      * @return price.
      */
@@ -18,6 +24,11 @@ public class Fish extends Sandwich{
                 additional_cost += PER_EXTRA;
             return BASE_PRICE + additional_cost;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return true;
     }
 
     /**

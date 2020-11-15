@@ -4,6 +4,12 @@ public class Chicken extends Sandwich {
     static final double BASE_PRICE = 8.99;
 
     /**
+     * Default Fish Constructor.
+     */
+    public Chicken() {
+    }
+
+    /**
      * This method calculates the price of a Chicken Sandwich.
      * @return price.
      */

@@ -4,6 +4,12 @@ public class Beef extends Sandwich {
     static final double BASE_PRICE = 10.99;
 
     /**
+     * Default Beef Constructor.
+     */
+    public Beef() {
+    }
+
+    /**
      * This method calculates the price of a Beef Sandwich.
      * @return price.
      */
@@ -18,6 +24,11 @@ public class Beef extends Sandwich {
                 additional_cost += PER_EXTRA;
             return BASE_PRICE + additional_cost;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        return true;
     }
 
     /**

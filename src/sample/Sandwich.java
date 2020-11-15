@@ -8,12 +8,6 @@ public abstract class Sandwich implements Customizable {
     protected ArrayList<Extra> extras;
 
     /**
-     * Default Sandwich Constructor.
-     */
-    public Sandwich() {
-    }
-
-    /**
      * This is an abstract method that is overridden in the Chicken, Beef, or Fish classes.
      */
     public abstract double price();
@@ -62,16 +56,19 @@ public abstract class Sandwich implements Customizable {
      * @param obj to be added to the extras ArrayList.
      * @return true is obj is added, false if the obj exists in the .
      */
-    public boolean add(Object obj) { //take in a sandwich object
+    public boolean add(Object obj) {
         Extra extra_topping = (Extra) obj;
 
         if (find(extra_topping) != -1)
             return false;
 
-        if (extras.size() < MAX_EXTRAS)
+        if (extras.size() < MAX_EXTRAS) {
             extras.add(extra_topping);
-
-        return true;
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public boolean remove(Object obj){
