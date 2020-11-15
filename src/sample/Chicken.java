@@ -20,6 +20,11 @@ public class Chicken extends Sandwich {
         }
     }
 
+    @Override
+    public boolean equals(Object obj){
+        return true;
+    }
+
     /**
      * This method returns a formatted string representing the toppings on a Chicken Sandwich object.
      * @return formatted string.

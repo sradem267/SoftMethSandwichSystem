@@ -21,6 +21,7 @@ public abstract class Sandwich implements Customizable {
     /**
      *This is an abstract method that is overridden in the Chicken, Beef, or Fish classes.
      */
+    @Override
     public abstract boolean equals(Object obj);
 
     /**
