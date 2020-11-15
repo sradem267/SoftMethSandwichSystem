@@ -19,10 +19,10 @@ public class Controller implements Initializable{
     private ListView<String> listView;
 
     @FXML
-    private ListView<String> lvIngredientSelections;
+    private ListView<Extra> lvIngredientSelections;
 
     @FXML
-    private ListView<String> lvExtraIngredients;
+    private ListView<Extra> lvExtraIngredients;
 
     @FXML
     private TextArea displayArea;
@@ -37,9 +37,9 @@ public class Controller implements Initializable{
     ObservableList<String> chickenData = FXCollections.observableArrayList("Fried Chicken", "Spicy Sauce", "Pickles");
     ObservableList<String> beefData = FXCollections.observableArrayList("Roast Beef", "Provolone", "Mustard");
     ObservableList<String> fishData = FXCollections.observableArrayList("Grilled Snapper", "Cilantro", "Lime");
-    ObservableList<String> extraIngredients =
-            FXCollections.observableArrayList("Lettuce", "Onions", "Olives", "Cheddar", "Tomatoes",
-                    "Swiss", "Mushrooms", "Jalapenos", "Mayo", "Spinach");
+    ObservableList<Extra> extraIngredients =
+            FXCollections.observableArrayList(Extra.LETTUCE, Extra.OLIVES , Extra.CHEDDAR, Extra.TOMATOES,
+                    Extra.SWISS, Extra.MUSHROOMS, Extra.JALAPENOS, Extra.MAYO, Extra.SPINACH, Extra.ONIONS);
 
 
     @FXML
@@ -73,32 +73,41 @@ public class Controller implements Initializable{
 
     @FXML
     public void addClicked(MouseEvent event) {
-        ObservableList<String> extras;
+        ObservableList<Extra> extras;
         extras = lvIngredientSelections.getSelectionModel().getSelectedItems();
-        //boolean success = false;
-        /*
-        for(String extra: extras){
-            if(chicken_sandwich.add(extra))
-                success = true;
-            else{
-                success = false;
-                displayArea.appendText("Item not found!\n");
-                continue;
+        boolean success = false;
+        if (comboBox.getSelectionModel().getSelectedItem().equals("Chicken") || comboBox.getSelectionModel().getSelectedItem() == null) {
+            chicken_sandwich = new Chicken();
+            for(Extra extra: extras){
+                if(chicken_sandwich.add(extra))
+                    success = true;
+                else{
+                    success = false;
+                    displayArea.appendText("Item not found!\n");
+                    continue;
+                }
             }
+        }
+        else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
+            beef_sandwich = new Beef();
+        }
+        else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
+            fish_sandwich = new Fish();
+        }
+        else{
+            displayArea.appendText("Congrats you broke the listView box!\n");
         }
         if(success)
             lvExtraIngredients.setItems(extras);
-        */
-        lvExtraIngredients.setItems(extras);
     }
 
     @FXML
     public void removeClicked(MouseEvent event) {
-        ObservableList<String> extrasRemoved;
+        ObservableList<Extra> extrasRemoved;
         extrasRemoved = lvExtraIngredients.getSelectionModel().getSelectedItems();
-        //boolean success = true;
-        /*
-        for(String extraRm: extrasRemoved){
+        boolean success = true;
+
+        for(Extra extraRm: extrasRemoved){
             if(chicken_sandwich.remove(extraRm))
                 continue;
             else{
@@ -107,9 +116,7 @@ public class Controller implements Initializable{
             }
         }
         if(success)
-            lvExtraIngredients.setItems(extras);
-        */
-        lvExtraIngredients.getSelectionModel().clearSelection();
+            lvExtraIngredients.getSelectionModel().clearSelection();
 
     }
 

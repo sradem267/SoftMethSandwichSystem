@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Sandwich implements Customizable {
     static final int MAX_EXTRAS = 6;
     static final double PER_EXTRA = 1.99;
-    protected ArrayList<Extra> extras;
+    protected ArrayList<Extra> extras = new ArrayList<Extra>();;
 
     /**
      * This is an abstract method that is overridden in the Chicken, Beef, or Fish classes.
@@ -83,5 +83,4 @@ public abstract class Sandwich implements Customizable {
             return true;
         }
     }
-
 }

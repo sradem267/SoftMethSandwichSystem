@@ -9,5 +9,6 @@ public enum Extra {
     MUSHROOMS,
     JALAPENOS,
     MAYO,
-    SPINACH
+    SPINACH,
+    ONIONS
 }
