@@ -122,12 +122,12 @@
                      </font>
                   </Label>
                   <TextField fx:id="price" />
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" text="Add to Order">
+                  <Button fx:id="bttnAddOrder" mnemonicParsing="false" onMouseClicked="#clickedAddtoOrder" prefHeight="27.0" prefWidth="112.0" text="Add to Order">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="112.0" text="Show Order">
+                  <Button fx:id="bttnShowOrder" mnemonicParsing="false" onMouseClicked="#clickedShowOrder" prefWidth="112.0" text="Show Order">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

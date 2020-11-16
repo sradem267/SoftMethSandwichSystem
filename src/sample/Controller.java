@@ -1,6 +1,12 @@
 package sample;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -11,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class Controller implements Initializable{
     @FXML
@@ -29,7 +36,7 @@ public class Controller implements Initializable{
     private TextArea displayArea;
 
     @FXML
-    private Button bttnAdd, bttnRemove, bttnClear;
+    private Button bttnAdd, bttnRemove, bttnClear, bttnAddOrder, bttnShowOrder;
 
     @FXML
     private TextField price;
@@ -112,5 +119,23 @@ public class Controller implements Initializable{
     @FXML
     void clear(MouseEvent event) {
         lvExtraIngredients.getItems().clear();
+    }
+
+    public void clickedAddtoOrder(MouseEvent event) throws IOException
+    {
+        Order order = new Order();
+        OrderLine newOrder = new OrderLine(sandwich);
+        order.add(newOrder);
+        displayArea.appendText("Sandwich added to order.\n");
+    }
+
+    public void clickedShowOrder(MouseEvent event) throws IOException
+    {
+        Parent orderSummary = FXMLLoader.load(getClass().getResource("orderSummary.fxml"));
+        Scene orderSummaryScene = new Scene(orderSummary);
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(orderSummaryScene);
+        window.show();
     }
 }

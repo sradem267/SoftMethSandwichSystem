@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Sandwich implements Customizable {
     static final int MAX_EXTRAS = 6;
     static final double PER_EXTRA = 1.99;
-    protected ArrayList<Extra> extras = new ArrayList<Extra>();;
+    protected ArrayList<Extra> extras = new ArrayList<Extra>();
 
     /**
      * This is an abstract method that is overridden in the Chicken, Beef, or Fish classes.
@@ -30,7 +30,7 @@ public abstract class Sandwich implements Customizable {
             return "none.";
         else {
             for (Extra extra : extras)
-                temp += extra;
+                temp += extra + ", ";
             return temp;
         }
     }
@@ -57,10 +57,14 @@ public abstract class Sandwich implements Customizable {
      * @return true is obj is added, false if the obj exists in the .
      */
     public boolean add(Object obj) {
+        boolean topping_exists = true;
+        boolean under_max = true;
         Extra extra_topping = (Extra) obj;
 
-        if (find(extra_topping) != -1)
-            return false;
+        if (find(extra_topping) != -1) {
+            topping_exists = false;
+            return topping_exists;
+        }
 
         if (extras.size() < MAX_EXTRAS) {
             extras.add(extra_topping);

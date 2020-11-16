@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order implements Customizable{
         public static int lineNumber; //reset for each new order
-        protected ArrayList<OrderLine> orderlines;
+        protected ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 
 
         /**
@@ -12,7 +12,10 @@ public class Order implements Customizable{
          * @return the holder Profile of the account.
          */
         public int getLineNumber() {
-                lineNumber = orderlines.size();;
+                if(orderlines.isEmpty())
+                        lineNumber = 1;
+                else
+                        lineNumber = orderlines.size();
                 return lineNumber;
         }
 
@@ -46,15 +49,6 @@ public class Order implements Customizable{
          * @return true is obj is added.
          */
         public boolean add(Object obj){ //take in a sandwich object
-                /*Sandwich addSandwich = (Sandwich) obj;
-
-                OrderLine orderLine = new OrderLine(lineNumber, addSandwich, price);
-                 */
-                //OrderLine orderline = (OrderLine) obj;
-
-                //Sandwich addSandwich = (Sandwich) obj; //cast generic object to type sandwich
-                //OrderLine orderLine = new OrderLine(addSandwich); //create an objectline object from sandwich object
-
                 OrderLine orderline = (OrderLine) obj;
                 orderlines.add(orderline);
                 lineNumber++;
