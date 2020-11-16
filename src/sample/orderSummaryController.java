@@ -23,7 +23,6 @@ public class orderSummaryController implements Initializable {
     private TextArea orderTotalPrice;
 
     private Order order = new Order(); // instantiate new Order object
-    private ObservableList<OrderLine> listOfOrders;
 
     @FXML
     public void displayPrice() {
@@ -41,11 +40,7 @@ public class orderSummaryController implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) { //initialize this when the show order button is clicked
-        for(int i = 0; i < order.getorderlines().size(); i++){
-            OrderLine orderLine = (OrderLine) order.getorderlines().get(i);
-            listOfOrders = FXCollections.observableArrayList(orderLine);
-        }
-        listView.setItems(listOfOrders);
+        listView.getItems().addAll(order.getorderlines());
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
@@ -59,6 +54,7 @@ public class orderSummaryController implements Initializable {
 
         OrderLine duplicateOrderSandwich = new OrderLine(selectedOrder.getSandwich());
         order.add(duplicateOrderSandwich);
+
         listView.getItems().clear();
         listView.getItems().addAll(order.getorderlines()); //print updated list to listview
         displayPrice();
@@ -70,7 +66,7 @@ public class orderSummaryController implements Initializable {
 
         OrderLine selectedOrder = (OrderLine) orderItem;
         order.remove(selectedOrder);
-        
+
         listView.getItems().clear();
         listView.getItems().addAll(order.getorderlines()); //print updated list to listview
         displayPrice();
