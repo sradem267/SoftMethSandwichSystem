@@ -34,9 +34,7 @@ public class Controller implements Initializable{
     @FXML
     private TextField price;
 
-    private Chicken chicken_sandwich = new Chicken();
-    private Beef beef_sandwich = new Beef();
-    private Fish fish_sandwich = new Fish();
+    private Sandwich sandwich = new Chicken();
     private ObservableList<String> list = FXCollections.observableArrayList("Beef", "Fish", "Chicken");
     private ObservableList<String> chickenData = FXCollections.observableArrayList("Fried Chicken", "Spicy Sauce", "Pickles");
     private ObservableList<String> beefData = FXCollections.observableArrayList("Roast Beef", "Provolone", "Mustard");
@@ -60,12 +58,15 @@ public class Controller implements Initializable{
     @FXML
     public void comboChanged(ActionEvent event) {
         if (comboBox.getSelectionModel().getSelectedItem().equals("Chicken")) {
+            sandwich = new Chicken();
             listView.setItems(chickenData);
         }
         else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
+            sandwich = new Beef();
             listView.setItems(beefData);
         }
         else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
+            sandwich = new Fish();
             listView.setItems(fishData);
         }
         else{
@@ -76,89 +77,31 @@ public class Controller implements Initializable{
     @FXML
     public void addClicked(MouseEvent event) {
         ObservableList<Extra> extras = lvIngredientSelections.getSelectionModel().getSelectedItems();
-        if (comboBox.getSelectionModel().getSelectedItem() == null || comboBox.getSelectionModel().getSelectedItem().equals("Chicken")) {
-            for(Extra extra: extras){
-                if(chicken_sandwich.add(extra)) {
-                    lvExtraIngredients.getItems().add(extra);
-                    price.setText(String.format("%.2f", chicken_sandwich.price()));
-                }
-                else{
-                    displayArea.appendText("Item already exists!\n");
-                    continue;
-                }
+        for(Extra extra: extras){
+            if(sandwich.add(extra)) {
+                lvExtraIngredients.getItems().add(extra);
+                price.setText(String.format("%.2f", sandwich.price()));
             }
-        }
-        else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
-            for(Extra extra: extras){
-                if(beef_sandwich.add(extra)) {
-                    lvExtraIngredients.getItems().add(extra);
-                    price.setText(String.format("%.2f", beef_sandwich.price()));
-                }
-                else{
-                    displayArea.appendText("Item already exists!\n");
-                    continue;
-                }
+            else{
+                displayArea.appendText("Item already exists!\n");
+                continue;
             }
-        }
-        else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
-            for(Extra extra: extras){
-                if(fish_sandwich.add(extra)) {
-                    lvExtraIngredients.getItems().add(extra);
-                    price.setText(String.format("%.2f", fish_sandwich.price()));
-                }
-                else{
-                    displayArea.appendText("Item already exists!\n");
-                    continue;
-                }
-            }
-        }
-        else{
-            displayArea.appendText("Congrats you broke the listView box!\n");
         }
     }
 
     @FXML
     public void removeClicked(MouseEvent event) {
-        ObservableList<Extra> observalbeextrasRemoved = lvExtraIngredients.getSelectionModel().getSelectedItems();
-        ArrayList<Extra> extrasRemoved = new ArrayList<>(observalbeextrasRemoved);
-        if (comboBox.getSelectionModel().getSelectedItem() == null || comboBox.getSelectionModel().getSelectedItem().equals("Chicken")) {
-            for(int i = 0; i < extrasRemoved.size(); i++){
-                if(chicken_sandwich.remove(extrasRemoved.get(i))) {
-                    lvExtraIngredients.getItems().remove(extrasRemoved.get(i));
-                    //lvExtraIngredients.getSelectionModel().clearSelection();
-                    price.setText(String.format("%.2f", chicken_sandwich.price()));
-                }
-                else{
-                    displayArea.appendText("Item not found!\n");
-                    continue;
-                }
+        ObservableList<Extra> observableExtrasRemoved = lvExtraIngredients.getSelectionModel().getSelectedItems();
+        ArrayList<Extra> extrasRemoved = new ArrayList<>(observableExtrasRemoved);
+        for(int i = 0; i < extrasRemoved.size(); i++){
+            if(sandwich.remove(extrasRemoved.get(i))) {
+                lvExtraIngredients.getItems().remove(extrasRemoved.get(i));
+                price.setText(String.format("%.2f", sandwich.price()));
             }
-        }
-        else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
-            for(Extra extraRm: extrasRemoved){
-                if(beef_sandwich.remove(extraRm)) {
-                    lvExtraIngredients.getSelectionModel().clearSelection();
-                    price.setText(String.format("%.2f", beef_sandwich.price()));
-                }
-                else{
-                    displayArea.appendText("Item not found!\n");
-                    continue;
-                }
+            else{
+                displayArea.appendText("Item not found!\n");
+                continue;
             }
-        }
-        else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
-            for (Extra extraRm : extrasRemoved) {
-                if (fish_sandwich.remove(extraRm)) {
-                    lvExtraIngredients.getSelectionModel().clearSelection();
-                    price.setText(String.format("%.2f", fish_sandwich.price()));
-                } else {
-                    displayArea.appendText("Item not found!\n");
-                    continue;
-                }
-            }
-        }
-        else{
-            displayArea.appendText("Congrats you broke the listView box!\n");
         }
     }
 
