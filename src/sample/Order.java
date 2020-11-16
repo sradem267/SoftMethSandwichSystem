@@ -4,7 +4,25 @@ import java.util.ArrayList;
 
 public class Order implements Customizable{
         public static int lineNumber; //reset for each new order
-        private ArrayList<OrderLine> orderlines;
+        protected ArrayList<OrderLine> orderlines;
+
+
+        /**
+         * Getter method to get the holder field of an Account object.
+         * @return the holder Profile of the account.
+         */
+        public int getLineNumber() {
+                lineNumber = orderlines.size();;
+                return lineNumber;
+        }
+
+        /**
+         * Getter method to get the orderlines ArrayList.
+         * @return the orderlines ArrayList
+         */
+        public ArrayList getorderlines() {
+                return orderlines;
+        }
 
 
         /**
@@ -19,9 +37,7 @@ public class Order implements Customizable{
                                 return i;
                         }
                 }
-                System.out.println("TESTING");
                 return -1;
-
         }
 
         /**
@@ -31,11 +47,14 @@ public class Order implements Customizable{
          */
         public boolean add(Object obj){ //take in a sandwich object
                 /*Sandwich addSandwich = (Sandwich) obj;
-                lineNumber = orderlines.size();
-                double price = addSandwich.price(); //create price getter method in sandwich
 
                 OrderLine orderLine = new OrderLine(lineNumber, addSandwich, price);
                  */
+                //OrderLine orderline = (OrderLine) obj;
+
+                //Sandwich addSandwich = (Sandwich) obj; //cast generic object to type sandwich
+                //OrderLine orderLine = new OrderLine(addSandwich); //create an objectline object from sandwich object
+
                 OrderLine orderline = (OrderLine) obj;
                 orderlines.add(orderline);
                 lineNumber++;
@@ -55,15 +74,15 @@ public class Order implements Customizable{
                 OrderLine orderLine = new OrderLine(lineNumber, addSandwich, price);
                  */
                 OrderLine orderline = (OrderLine) obj;
-                int sandwichIndex = find(orderline); // save index of sandwich into sandwichIndex
+                /*int sandwichIndex = find(orderline); // save index of sandwich into sandwichIndex
 
                 if (sandwichIndex == -1) {
                         return false;
-                } else {
-                        orderlines.remove(orderline);
-                        lineNumber--;
-                        return true;
-                }
+                } else {*/
+                orderlines.remove(orderline);
+                lineNumber--;
+                return true;
+                //}
         }
 
         /**
