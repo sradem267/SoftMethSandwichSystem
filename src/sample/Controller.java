@@ -46,6 +46,7 @@ public class Controller implements Initializable{
     @FXML
     private ImageView imageView;
 
+    private OrderController orderController;
     private Sandwich sandwich = new Chicken();
     private ObservableList<String> list = FXCollections.observableArrayList("Beef", "Fish", "Chicken");
     private ObservableList<String> chickenData = FXCollections.observableArrayList("Fried Chicken", "Spicy Sauce", "Pickles");
@@ -56,9 +57,9 @@ public class Controller implements Initializable{
                     Extra.SWISS, Extra.MUSHROOMS, Extra.JALAPENOS, Extra.MAYO, Extra.SPINACH, Extra.ONIONS);
 
 
-
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        orderController = null;
         Image image = new Image(getClass().getResourceAsStream("/images/ChickenSandwich.jpeg"));
         imageView.setImage(image);
         comboBox.setItems(list);
@@ -144,11 +145,35 @@ public class Controller implements Initializable{
 
     public void clickedShowOrder(MouseEvent event) throws IOException
     {
-        Parent orderSummary = FXMLLoader.load(getClass().getResource("orderSummary.fxml"));
-        Scene orderSummaryScene = new Scene(orderSummary);
-        //This line gets the Stage information
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(orderSummaryScene);
-        window.show();
+        if ( orderController == null ) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Order.fxml"));
+                Scene scene = new Scene(loader.load(), 600, 418);
+                orderController = loader.getController();
+                orderController.setMainController(this);
+                Stage stage = new Stage();
+                stage.setTitle("My Sandwich Store");
+                stage.setScene(scene);
+                //stage.setOnCloseRequest(e -> orderController = null);
+                stage.show();
+            } catch ( IOException e ) {
+                orderController = null;
+                displayArea.appendText("Error: Failed to open order window\n");
+            }
+        } else {
+            // Order window is already open
+            displayArea.appendText("Order window already open\n");
+        }
     }
 }
+//FXMLLoader loader = new FXMLLoader(getClass().getResource("orderSummary.fxml"));
+        //orderSummaryController controller2 = loader.getController();
+        //controller2.setController(this);
+        //Parent orderSummary = FXMLLoader.load(getClass().getResource("orderSummary.fxml"));
+        //Parent orderSummary = loader.load();
+        //Scene orderSummaryScene = new Scene(orderSummary);
+
+        //This line gets the Stage information
+        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        //window.setScene(orderSummaryScene);
+        //window.show();

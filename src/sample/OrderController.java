@@ -3,6 +3,7 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -11,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class orderSummaryController implements Initializable {
+public class OrderController implements Initializable {
 
     @FXML
     private ListView<OrderLine> listView;
@@ -23,6 +24,17 @@ public class orderSummaryController implements Initializable {
     private TextArea orderTotalPrice;
 
     private Order order = new Order(); // instantiate new Order object
+    private Controller controller;
+
+    /**
+     * Saves the instance of the MainController to pass information.
+     * Calls printOrder to show all the current pizza orders.
+     *
+     * @param controller the main controller
+     */
+    protected void setMainController ( Controller controller ) {
+        this.controller = controller;
+    }
 
     @FXML
     public void displayPrice() {
@@ -81,7 +93,6 @@ public class orderSummaryController implements Initializable {
 
     @FXML
     public void goBack(MouseEvent event) {
-
     }
 
     @FXML
