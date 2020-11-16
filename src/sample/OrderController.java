@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -52,7 +53,7 @@ public class OrderController implements Initializable {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) { //initialize this when the show order button is clicked
-        listView.getItems().addAll(order.getorderlines());
+        //listView.getItems().addAll(order.getorderlines());
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
@@ -69,7 +70,7 @@ public class OrderController implements Initializable {
 
         listView.getItems().clear();
         listView.getItems().addAll(order.getorderlines()); //print updated list to listview
-        displayPrice();
+        //displayPrice();
     }
 
     @FXML
@@ -81,7 +82,7 @@ public class OrderController implements Initializable {
 
         listView.getItems().clear();
         listView.getItems().addAll(order.getorderlines()); //print updated list to listview
-        displayPrice();
+        //displayPrice();
     }
 
     @FXML
@@ -99,5 +100,37 @@ public class OrderController implements Initializable {
     public void saveOrder(MouseEvent event) {
 
     }
+
+    /**
+     * Retrieves the list of orders from the mainController and prints each order with its price.
+     */
+    private void printOrder ( ) {
+        ArrayList<OrderLine> order = controller.get_orderlines();
+        double price = 0.0;
+        String orderTotal = "";
+
+        listView.getItems().addAll(order);
+
+        for (OrderLine orderLine : order ) {
+            price += orderLine.getPrice();
+        }
+        orderTotal += String.format("%.2f", price);
+        orderTotalPrice.appendText(orderTotal);
+    }
+
+    /*@FXML
+    public void displayPrice() {
+        double price = 0.0;
+        String orderTotal = "";
+        for (Object obj : order.getorderlines()){ //get objects from arraylist
+            OrderLine orderLine = (OrderLine) obj; //cast them as an orderline object
+            price += orderLine.getPrice();
+        }
+
+        orderTotal += String.format("%.2f", price);
+        orderTotalPrice.appendText(orderTotal);
+    }
+
+     */
 
 }

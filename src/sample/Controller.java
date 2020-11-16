@@ -174,15 +174,14 @@ public class Controller implements Initializable{
             displayArea.appendText("Order window already open\n");
         }
     }
-}
-//FXMLLoader loader = new FXMLLoader(getClass().getResource("orderSummary.fxml"));
-        //orderSummaryController controller2 = loader.getController();
-        //controller2.setController(this);
-        //Parent orderSummary = FXMLLoader.load(getClass().getResource("orderSummary.fxml"));
-        //Parent orderSummary = loader.load();
-        //Scene orderSummaryScene = new Scene(orderSummary);
 
-        //This line gets the Stage information
-        //Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        //window.setScene(orderSummaryScene);
-        //window.show();
+    /**
+     * Gets the ArrayList of pizzas and returns it.
+     *
+     * @return pizzaOrder The ArrayList of pizzas being ordered
+     */
+    protected ArrayList<OrderLine> get_orderlines () {
+        Order order = new Order();
+        return order.getorderlines();
+    }
+}
