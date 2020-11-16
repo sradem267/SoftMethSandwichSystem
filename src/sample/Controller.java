@@ -147,7 +147,7 @@ public class Controller implements Initializable{
     {
         if ( orderController == null ) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Order.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("orderSummary.fxml"));
                 Scene scene = new Scene(loader.load(), 600, 418);
                 orderController = loader.getController();
                 orderController.setMainController(this);
