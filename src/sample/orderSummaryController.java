@@ -70,12 +70,7 @@ public class orderSummaryController implements Initializable {
 
         OrderLine selectedOrder = (OrderLine) orderItem;
         order.remove(selectedOrder);
-
-        for (int i = 0; i < order.getorderlines().size(); i ++){
-            OrderLine orderLine = (OrderLine) order.getorderlines().get(i); //cast obj from arrayList as orderline obj
-            OrderLine.setLineNumber(orderLine, i);
-        }
-
+        
         listView.getItems().clear();
         listView.getItems().addAll(order.getorderlines()); //print updated list to listview
         displayPrice();
