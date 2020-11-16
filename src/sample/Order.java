@@ -50,7 +50,7 @@ public class Order implements Customizable{
         public boolean add(Object obj){ //take in a sandwich object
                 OrderLine orderline = (OrderLine) obj;
                 orderlines.add(orderline);
-                lineNumber++;
+                //lineNumber++;
                 System.out.println(orderlines.get(0));
                 return true;
         }
@@ -67,16 +67,15 @@ public class Order implements Customizable{
 
                 OrderLine orderLine = new OrderLine(lineNumber, addSandwich, price);
                  */
+                if (orderlines.isEmpty()){ return false;}
                 OrderLine orderline = (OrderLine) obj;
-                /*int sandwichIndex = find(orderline); // save index of sandwich into sandwichIndex
-
-                if (sandwichIndex == -1) {
-                        return false;
-                } else {*/
                 orderlines.remove(orderline);
-                lineNumber--;
+                //lineNumber--;
+                for (int i = 0; i < orderlines.size(); i++){
+                        OrderLine.setLineNumber(orderlines.get(i), i); //reset line nums for all obj in orderlines list
+                }
                 return true;
-                //}
+
         }
 
         /**
