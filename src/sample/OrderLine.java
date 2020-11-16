@@ -37,7 +37,6 @@ public class OrderLine {
 
 
     public static void setLineNumber(OrderLine orderLine, int index) {
-
         orderLine.lineNumber = index + 1;
     }
 
