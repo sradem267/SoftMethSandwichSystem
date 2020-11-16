@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Order implements Customizable{
         public static int lineNumber; //reset for each new order
-        protected ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
+        private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 
 
         /**
@@ -52,6 +52,7 @@ public class Order implements Customizable{
                 OrderLine orderline = (OrderLine) obj;
                 orderlines.add(orderline);
                 lineNumber++;
+                System.out.println(orderlines.get(0));
                 return true;
         }
 

@@ -1,8 +1,10 @@
 package sample;
 
 import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
@@ -11,10 +13,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class orderSummaryController {
+public class orderSummaryController implements Initializable {
 
     @FXML
-    private ListView<Object> listView;
+    private ListView<OrderLine> listView;
 
     @FXML
     private Button duplicateOrderBttn, removeOrderBttn, clearOrderBttn, backBttnc, saveOrderBttn;
@@ -23,13 +25,14 @@ public class orderSummaryController {
     private TextArea orderTotalPrice;
 
     private Order order = new Order(); // instantiate new Order object
+    private ObservableList<OrderLine> orders;
 
     @FXML
     public void displayPrice() {
         double price = 0.0;
         String orderTotal = "";
-        for (Object ojb : order.getorderlines()){ //get objects from arraylist
-            OrderLine orderLine = (OrderLine) ojb; //cast them as an orderline object
+        for (Object obj : order.getorderlines()){ //get objects from arraylist
+            OrderLine orderLine = (OrderLine) obj; //cast them as an orderline object
             price += orderLine.getPrice();
         }
 
@@ -40,7 +43,11 @@ public class orderSummaryController {
 
     @FXML
     public void initialize(URL url, ResourceBundle rb) { //initialize this when the show order button is clicked
-        listView.getItems().addAll(order.getorderlines());
+        for(int i = 0; i < order.getorderlines().size(); i++){
+            OrderLine orderLine = (OrderLine) order.getorderlines().get(i);
+            orders = FXCollections.observableArrayList(orderLine);
+        }
+        listView.setItems(orders);
         listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
@@ -48,7 +55,7 @@ public class orderSummaryController {
     public void duplicateOrder(MouseEvent event) {
         //are you allowed to select more than one item order to duplicate at once??
 
-        ObservableList<Object> orderItem = listView.getSelectionModel().getSelectedItems();
+        ObservableList<OrderLine> orderItem = listView.getSelectionModel().getSelectedItems();
 
         OrderLine selectedOrder = (OrderLine) orderItem;
 
@@ -59,7 +66,7 @@ public class orderSummaryController {
 
     @FXML
     public void removeOrder(MouseEvent event) {
-        ObservableList<Object> orderItem = listView.getSelectionModel().getSelectedItems();
+        ObservableList<OrderLine> orderItem = listView.getSelectionModel().getSelectedItems();
 
         OrderLine selectedOrder = (OrderLine) orderItem;
         order.remove(selectedOrder);
