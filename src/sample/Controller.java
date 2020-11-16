@@ -1,8 +1,6 @@
 package sample;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,6 +53,7 @@ public class Controller implements Initializable{
     private ObservableList<Extra> extraIngredients =
             FXCollections.observableArrayList(Extra.LETTUCE, Extra.OLIVES , Extra.CHEDDAR, Extra.TOMATOES,
                     Extra.SWISS, Extra.MUSHROOMS, Extra.JALAPENOS, Extra.MAYO, Extra.SPINACH, Extra.ONIONS);
+    private static final int MAX_EXTRAS = 6;
 
 
     @FXML
@@ -104,8 +103,18 @@ public class Controller implements Initializable{
                 price.setText(String.format("%.2f", sandwich.price()));
             }
             else{
-                displayArea.appendText("Item already exists!\n");
-                continue;
+                if(extras.size() > MAX_EXTRAS){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning Dialog");
+                    alert.setHeaderText("CANNOT add more than 6 items!");
+                    alert.setContentText("Number of extra ingredients is limited to 6.");
+                    alert.showAndWait();
+                }
+                else {
+                    displayArea.appendText("Item already exists!\n");
+                    continue;
+                }
+
             }
         }
     }
