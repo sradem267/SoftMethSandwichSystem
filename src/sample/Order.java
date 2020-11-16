@@ -6,7 +6,6 @@ public class Order implements Customizable{
         public static int lineNumber; //reset for each new order
         private ArrayList<OrderLine> orderlines = new ArrayList<OrderLine>();
 
-
         /**
          * Getter method to get the holder field of an Account object.
          * @return the holder Profile of the account.

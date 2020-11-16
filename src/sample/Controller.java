@@ -4,6 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -41,6 +43,9 @@ public class Controller implements Initializable{
     @FXML
     private TextField price;
 
+    @FXML
+    private ImageView imageView;
+
     private Sandwich sandwich = new Chicken();
     private ObservableList<String> list = FXCollections.observableArrayList("Beef", "Fish", "Chicken");
     private ObservableList<String> chickenData = FXCollections.observableArrayList("Fried Chicken", "Spicy Sauce", "Pickles");
@@ -54,6 +59,8 @@ public class Controller implements Initializable{
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
+        Image image = new Image(getClass().getResourceAsStream("/images/ChickenSandwich.jpeg"));
+        imageView.setImage(image);
         comboBox.setItems(list);
         listView.setItems(chickenData);
         listView.setDisable(true);
@@ -67,14 +74,20 @@ public class Controller implements Initializable{
         if (comboBox.getSelectionModel().getSelectedItem().equals("Chicken")) {
             sandwich = new Chicken();
             listView.setItems(chickenData);
+            Image image = new Image(getClass().getResourceAsStream("/images/ChickenSandwich.jpeg"));
+            imageView.setImage(image);
         }
         else if (comboBox.getSelectionModel().getSelectedItem().equals("Beef")) {
             sandwich = new Beef();
             listView.setItems(beefData);
+            Image image = new Image(getClass().getResourceAsStream("/images/RoastBeef.jpeg"));
+            imageView.setImage(image);
         }
         else if (comboBox.getSelectionModel().getSelectedItem().equals("Fish")) {
             sandwich = new Fish();
             listView.setItems(fishData);
+            Image image = new Image(getClass().getResourceAsStream("/images/FishSandwich.jpeg"));
+            imageView.setImage(image);
         }
         else{
             displayArea.appendText("Congrats you broke the combo box!\n");
